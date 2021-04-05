@@ -10,4 +10,13 @@ class TextIngestor(IngestorInterface):
 
     @classmethod
     def parse(cls, path: str) -> List[Quote]:
-        pass
+        if not cls.can_ingest(path):
+            raise ValueError(f'Unable to parse {path}. Allowed file types: {cls.allowed_extensions}.')
+        quotes = []
+        with open(path) as f:
+            for line in f.readlines():
+                quote_parts = [part.strip() for part in line.split('-')]
+                if len(quote_parts) == 2:
+                    quote = Quote(quote_parts[0], quote_parts[1])
+                    quotes.append(quote)
+        return quotes

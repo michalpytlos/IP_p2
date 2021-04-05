@@ -9,8 +9,8 @@ class IngestorInterface(ABC):
     allowed_extensions = []
 
     @classmethod
-    def can_ingest(cls, pat: str) -> bool:
-        pass
+    def can_ingest(cls, path: str) -> bool:
+        return path.split('.')[-1] in cls.allowed_extensions
 
     @classmethod
     @abstractmethod

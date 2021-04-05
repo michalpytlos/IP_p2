@@ -41,3 +41,15 @@ def test_text_ingestor_parse():
 
 def test_ingestor_parse_text():
     assert Ingestor.parse(TEST_TXT) == TEST_QUOTES
+
+
+def test_ingestor_parse_pdf():
+    assert Ingestor.parse(TEST_PDF) == TEST_QUOTES
+
+
+def test_ingestor_parse_csv():
+    assert Ingestor.parse(TEST_CSV) == TEST_QUOTES
+
+
+def test_ingestor_parse_docx():
+    assert Ingestor.parse(TEST_DOCX) == TEST_QUOTES
