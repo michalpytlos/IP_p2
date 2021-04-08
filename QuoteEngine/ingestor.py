@@ -9,9 +9,15 @@ from .docx_ingestor import DocxIngestor
 
 
 class Ingestor(IngestorInterface):
+    """Class for extracting quotes from a variety of file types."""
 
     @classmethod
     def parse(cls, path: str) -> List[Quote]:
+        """Extract quotes from a file.
+
+        :param path: Path to a file.
+        :return: List of Quote objects.
+        """
         checked_extensions = []
         for ingestor in [CSVIngestor, TextIngestor, DocxIngestor, PDFIngestor]:
             if ingestor.can_ingest(path):

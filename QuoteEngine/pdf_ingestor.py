@@ -9,11 +9,17 @@ from .ingestor_interface import IngestorInterface
 
 
 class PDFIngestor(IngestorInterface):
+    """Class for extracting quotes from pdf files."""
 
     allowed_extensions = ['pdf']
 
     @classmethod
     def parse(cls, path: str) -> List[Quote]:
+        """Extract quotes from a pdf file.
+
+        :param path: Path to a file.
+        :return: List of Quote objects.
+        """
         if not cls.can_ingest(path):
             raise ValueError(f'Unable to parse {path}. Allowed file types: {cls.allowed_extensions}.')
         quotes = []

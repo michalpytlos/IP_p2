@@ -5,11 +5,17 @@ from .ingestor_interface import IngestorInterface
 
 
 class TextIngestor(IngestorInterface):
+    """Class for extracting quotes from plain text files."""
 
     allowed_extensions = ['txt']
 
     @classmethod
     def parse(cls, path: str) -> List[Quote]:
+        """Extract quotes from a plain text file.
+
+        :param path: Path to a file.
+        :return: List of Quote objects.
+        """
         if not cls.can_ingest(path):
             raise ValueError(f'Unable to parse {path}. Allowed file types: {cls.allowed_extensions}.')
         quotes = []

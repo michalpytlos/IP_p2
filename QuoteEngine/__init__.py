@@ -1,3 +1,5 @@
+"""Package for extracting quotes from a variety of file types."""
+
 from .csv_ingestor import CSVIngestor
 from .pdf_ingestor import PDFIngestor
 from .docx_ingestor import DocxIngestor
