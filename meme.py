@@ -1,3 +1,5 @@
+"""Script for generating memes."""
+
 import os
 import random
 import argparse
@@ -7,7 +9,7 @@ from QuoteEngine import Ingestor, Quote
 
 
 def generate_meme(path=None, body=None, author=None):
-    """ Generate a meme given a path and a quote """
+    """Generate a meme given a path and a quote."""
     img = None
     quote = None
 
