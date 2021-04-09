@@ -23,4 +23,9 @@ class Ingestor(IngestorInterface):
             if ingestor.can_ingest(path):
                 return ingestor.parse(path)
             checked_extensions.extend(ingestor.allowed_extensions)
-        raise ValueError(f'Unable to parse {path}. Allowed file types: {checked_extensions}')
+
+        # None of the ingestors can parse the file
+        allowed_types = ', '.join(checked_extensions)
+        raise ValueError(
+            f'Unable to parse {path}. Allowed file types: {allowed_types}'
+        )

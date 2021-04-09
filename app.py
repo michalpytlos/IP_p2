@@ -16,10 +16,12 @@ meme = MemeEngine('./static')
 
 def setup():
     """Load all resources."""
-    quote_files = ['./_data/DogQuotes/DogQuotesTXT.txt',
-                   './_data/DogQuotes/DogQuotesDOCX.docx',
-                   './_data/DogQuotes/DogQuotesPDF.pdf',
-                   './_data/DogQuotes/DogQuotesCSV.csv']
+    quote_files = [
+        './_data/DogQuotes/DogQuotesTXT.txt',
+        './_data/DogQuotes/DogQuotesDOCX.docx',
+        './_data/DogQuotes/DogQuotesPDF.pdf',
+        './_data/DogQuotes/DogQuotesCSV.csv'
+    ]
 
     # quote_files variable
     quotes = []
@@ -61,8 +63,11 @@ def meme_post():
     image_url = request.form['image_url']
     file_extension = image_url.split('.')[-1]
     if file_extension not in meme.allowed_extensions:
-        abort(400, f'Wrong file type. Allowed file types: {", ".join(meme.allowed_extensions)}.')
-    tmp_file = os.path.join('./tmp', f'base_img_{random.randint(0, 10000)}.{file_extension}')
+        allowed_types = ", ".join(meme.allowed_extensions)
+        abort(400, f'Wrong file type. Allowed file types: {allowed_types}.')
+    tmp_file = os.path.join(
+        './tmp', f'base_img_{random.randint(0, 10000)}.{file_extension}'
+    )
     r = requests.get(image_url, stream=True)
     if r.status_code == 200:
         with open(tmp_file, 'wb') as f:

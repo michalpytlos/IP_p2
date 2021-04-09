@@ -22,8 +22,9 @@ class MemeEngine:
         self.text_font_path = text_font_path
         self.author_font_path = author_font_path
 
-    def make_meme(self, img_path: str, text: str, author: str, width: int = 500,
-                  text_font_size: int = 32, author_font_size: int = 20) -> str:
+    def make_meme(self, img_path: str, text: str, author: str,
+                  width: int = 500, text_font_size: int = 32,
+                  author_font_size: int = 20) -> str:
         """Generate a new meme.
 
         :param img_path: Path to the base image.
@@ -37,7 +38,10 @@ class MemeEngine:
         # Check file type
         file_extension = img_path.split('.')[-1].lower()
         if file_extension not in self.allowed_extensions:
-            raise ValueError(f'Unable to open {img_path}. Allowed file types: {self.allowed_extensions}.')
+            allowed_types = ', '.join(self.allowed_extensions)
+            raise ValueError(
+                f'Unable to open {img_path}. Allowed file types: {allowed_types}.'
+            )
 
         with Image.open(img_path) as image:
             # resize
@@ -47,7 +51,9 @@ class MemeEngine:
             self.add_quote(image, text, author, text_font_size, author_font_size)
 
             # save
-            out_path = os.path.join(self.output_dir, f'meme_{randint(0, 10000)}.{file_extension}')
+            out_path = os.path.join(
+                self.output_dir, f'meme_{randint(0, 10000)}.{file_extension}'
+            )
             image.save(out_path)
         return out_path
 
@@ -97,7 +103,9 @@ class MemeEngine:
 
         # randomly select position of text
         text_x = randint(0, width - text_length)
-        text_y = randint(0, max(0, height - text_height - author_height - extra_padding))
+        text_y = randint(
+            0, max(0, height - text_height - author_height - extra_padding)
+        )
         author_y = text_y + text_height + extra_padding
 
         # add body of quote

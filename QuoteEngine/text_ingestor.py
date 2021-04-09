@@ -16,8 +16,7 @@ class TextIngestor(IngestorInterface):
         :param path: Path to a file.
         :return: List of Quote objects.
         """
-        if not cls.can_ingest(path):
-            raise ValueError(f'Unable to parse {path}. Allowed file types: {cls.allowed_extensions}.')
+        cls.file_type_guard(path)
         quotes = []
         with open(path) as f:
             for line in f.readlines():

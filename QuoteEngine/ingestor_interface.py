@@ -15,6 +15,14 @@ class IngestorInterface(ABC):
         return path.split('.')[-1] in cls.allowed_extensions
 
     @classmethod
+    def file_type_guard(cls, path: str):
+        if not cls.can_ingest(path):
+            allowed_types = ', '.join(cls.allowed_extensions)
+            raise ValueError(
+                f'Unable to parse {path}. Allowed file types: {allowed_types}.'
+            )
+
+    @classmethod
     @abstractmethod
     def parse(cls, path: str) -> List[Quote]:
         """Extract quotes from a file.
